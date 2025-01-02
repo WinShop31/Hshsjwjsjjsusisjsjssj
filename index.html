@@ -1,0 +1,272 @@
+<!DOCTYPE html><html lang="ru" style="margin: 0; padding: 0"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/jquery.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <title>Архив банов</title>
+    <link rel="icon" href="images/logo.png" type="image/png">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/media.css" rel="stylesheet">
+    <link href="css/style-header.css" rel="stylesheet">
+    <link href="css/style-account.css" rel="stylesheet">
+    <link href="css/style-search.css" rel="stylesheet">
+    <link href="css/style-popup.css" rel="stylesheet">
+    <link href="css/style-loading.css" rel="stylesheet">
+</head>
+<body>
+<div id="block_window_load">
+    <div class="window_load"></div>
+</div>
+
+<script src="js/loading.js"></script>
+<div id="popup_block">
+
+</div>
+
+<script src="js/popup.js"></script>
+<header>
+    <div style="display: flex; justify-content: space-evenly">
+        <div class="nav_buttons nav_button_telegram">
+            <img src="images/icon_telegram.png" title="Телеграм сервера" onclick="showModal(TELEGRAM, this)">
+        </div>
+        <div class="nav_buttons nav_button_vk">
+            <img src="images/icon_vk.png" title="Вконтакте сервера" onclick="showModal(VK, this)">
+        </div>
+        <div class="nav_buttons nav_button_donate">
+            <img src="images/icon_donate.png" title="Донат сервера" onclick="showModal(DONATE, this)">
+        </div>
+        <div class="nav_buttons nav_button_youtube">
+            <img src="images/icon_youtube.png" title="Ютуб сервера" onclick="showModal(YOU_TUBE, this)">
+        </div>
+        <div class="nav_buttons nav_button_tiktok">
+            <img src="images/icon_tiktok.png" title="ТикТок сервера" onclick="showModal(TIKTOK, this)">
+        </div>
+    </div>
+    <div class="logo">
+        <img src="images/logo.png" onclick="window.location.href = window.location.href.split('?')[0];">
+    </div>
+
+    <div id="navigate_modal">
+        <div id="navigate_modal_content">
+            <div class="navigate_modal_info">
+                <div class="block_navigate_image">
+                    <img id="navigate_image" src="" alt="">
+                </div>
+                <p>Вы действительно хотите перейти в <span id="navigate_modal_text" style="color: aqua"></span> сервера?</p>
+            </div>
+            <div class="navigate_modal_buttons">
+                <button style="border-bottom-right-radius: 0; background-color: rgb(248,63,63);" onclick="hideModal()">Нет</button>
+                <button style="border-bottom-left-radius: 0; background-color: rgb(128,194,4)" onclick="navigateTransfer()">Да</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<script src="js/navigate.js"></script>
+<div id="login_twofactor_modal">
+    <div id="login_twofactor_modal_content">
+
+        <div style="position: relative;">
+            <div class="login_close" onclick="hideAuthTwoFactor()">
+                <img src="images/close.png" style="width: inherit; height: inherit">
+            </div>
+        </div>
+
+        <div class="login_modal_info">
+            <div style="width: 150px; height: 150px; margin: 0 auto">
+                <img src="images/icon_telegram.png" style="width: inherit; height: inherit">
+            </div>
+            <div style="margin-top: 15px">
+                <p>Данный аккаунт привязан к <span style="color: #3cdffc">Telegram</span>!</p>
+                <p>Введите код который был отправлен на ваш телеграм, чтобы авторизироваться на сайте!</p>
+            </div>
+
+            <div style="display: inline; width: 100%;">
+                <div class="login_block_form">
+                    <div style="padding: 5px">
+                        <input id="code_twofactor" placeholder="Введите код">
+                    </div>
+                    <div style="padding: 5px; width: 100px; margin: 0 auto">
+                        <button style="width: inherit;" onclick="sendCode()">Отправить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="login_modal">
+    <div id="login_modal_content">
+
+        <div style="position: relative;">
+            <div class="login_close" onclick="hideAuthForm()">
+                <img src="images/close.png" style="width: inherit; height: inherit">
+            </div>
+        </div>
+
+        <div class="login_modal_info" style="width: 100%; padding: 20px">
+
+            <div style="width: 150px; height: 150px; margin: 0 auto">
+                <img src="images/logo.png" style="width: inherit; height: inherit">
+            </div>
+            <p>Укажите сервер на котором хотите авторизироваться, введите свой ник и пароль чтобы получить возможность
+                загружать доказательства на свои наказания</p>
+
+
+            <div style="display: inline; width: 100%;">
+                <div class="login_block_form">
+                    <div style="padding: 5px; display: flex; justify-content: center">
+                        <select id="login_select_server">
+                                                            <option value="19133">Сервер #1</option>
+                                                            <option value="19134">Сервер #2</option>
+                                                            <option value="19131">Анархия #1</option>
+                                                    </select>
+                    </div>
+                    <div style="padding: 5px">
+                        <input id="nick" placeholder="Введите свой ник">
+                    </div>
+                    <div style="padding: 5px">
+                        <input id="password" placeholder="Введите пароль" type="password">
+                    </div>
+                    <div style="padding: 5px; width: 100px; margin: 0 auto">
+                        <button style="width: inherit;" onclick="sendLogin()">Войти</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/auth.js"></script>
+<div class="body_container">
+    <div id="block_account" class="default_block"></div>
+
+<div id="block_account_need_confirm_modal">
+    <div class="block_account_need_confirm_modal_content">
+        <div style="position: relative;">
+            <div class="login_close" onclick="hideModalNeedConfirm()">
+                <img src="images/close.png" style="width: inherit; height: inherit">
+            </div>
+        </div>
+        <div style="width: 100%; margin-top: 25px">
+            <div style="text-align: center">
+                <h3>Загрузите доказательства!</h3>
+            </div>
+            <div style="margin-top: 30px">
+                <ul>
+                    <li>Все доказательства не должны превышать отметку <span style="color: #3cdffc">200МБ</span></li>
+                    <li>На доказательствах должно быть четко видно <span style="color: #3cdffc">НИК</span> нарушителя
+                    </li>
+                    <li>Запрещено загружать файлы не типов <span style="color: #3cdffc">МЕДИА</span></li>
+                </ul>
+            </div>
+        </div>
+        <div id="content_account_load" style="padding: 0 15px"></div>
+    </div>
+</div>
+
+<div id="block_account_load_modal">
+    <div class="block_account_load_modal_content">
+        <div style="position: relative;">
+            <div class="login_close" onclick="hideFormLoadFiles()">
+                <img src="images/close.png" style="width: inherit; height: inherit">
+            </div>
+        </div>
+        <div style="padding: 15px">
+            <div style="text-align: center; margin-top: 20px">
+                <h4>Выберите файлы</h4>
+            </div>
+            <div style="display: flex; justify-content: center">
+                <div style="width: 90%; height: 15px; background-color: rgba(42,41,41,0.9); border-radius: 10px; margin-top: 20px">
+                    <div id="load_files_progress" style="height: inherit; width: 0; background-color: #17e017; border-radius: 10px"></div>
+                </div>
+            </div>
+            <div style="margin-top: 20px">
+
+                <div style="display: flex">
+                    <div style="margin: auto 0; overflow: auto; width: 50%">
+                        <p style="margin: 0">Вес файлов: <span id="select_files_size">0КБ</span>.</p>
+                        <p style="margin: 0">Выбрано файлов: <span id="select_files_count">0</span>.</p>
+                    </div>
+                    <div style="margin-left: auto">
+                        <label class="input-file">
+                            <input id="input_load_file" type="file" name="files[]" accept="image/*,video/*,.gif" multiple="">
+                            <span>Выберите файлы</span>
+                        </label>
+                    </div>
+                </div>
+                <div style="display:flex;">
+                <button id="button_send_files" class="button_send_files" style=" margin: 50px auto 20px auto">Отправить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/account.js"></script>
+<script src="js/loadProcess.js"></script>
+    <div id="filter_modal">
+    <div class="filter_modal_content">
+        <div style="position:relative;">
+            <div style="position: absolute; right: 10px; width: 15px; height: 15px">
+                <img src="images/close.png" style="width: inherit; height: inherit" onclick="hideFilterModal()">
+            </div>
+        </div>
+        <div style="padding: 20px">
+            <div id="filters" style="display: flex; justify-content: space-between">
+                <div style="width: 100%; margin: auto 0;">
+                                            <div>
+                            <input type="checkbox" id="19133" checked="">
+                            <label>Сервер #1</label>
+                        </div>
+                                            <div>
+                            <input type="checkbox" id="19134" checked="">
+                            <label>Сервер #2</label>
+                        </div>
+                                            <div>
+                            <input type="checkbox" id="19131" checked="">
+                            <label>Анархия #1</label>
+                        </div>
+                                    </div>
+                <div style="width: 100%">
+                    <div>
+                        <input type="checkbox" id="lock_chat" checked="">
+                        <label>Блокировки чата</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="lock_nick" checked="">
+                        <label>Баны по нику</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="lock_os" checked="">
+                        <label>Баны по OS</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="kick" checked="">
+                        <label>Выброшены с сервера</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="default_block">
+    <div class="block_search" style="display: flex">
+        <input id="search_nick" placeholder="Введите ник игрока" style="width: 100%;">
+        <img src="images/filter.png" onclick="showFilterModal()">
+        <img src="images/search.png" onclick="updateSearchData()">
+    </div>
+</div>
+
+<div id="search_result"></div>
+<div id="paginate"></div>
+
+<script src="js/SearchTables.js"></script>
+<script src="js/Search.js"></script>
+<script src="js/Post.js"></script>
+
+</div>
+
+
+</body></html>
